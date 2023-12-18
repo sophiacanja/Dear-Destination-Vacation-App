@@ -1,24 +1,24 @@
 import React from 'react';
+import Button from './components/Button'
+import MyCard from './components/MyCard';
+// Example: src/index.tsx or src/App.tsx
+// import '@emotion/react';
+
 import logo from './logo.svg';
 import './App.css';
+
+const handleButtonClick = () => {
+  console.log("button clicked");
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header> Hello world</header>
+      <Button title="Poop" onClick={handleButtonClick}/>
+      <div>
+      <MyCard title="Juneper" content="Biggest Poop" />
+      </div>
     </div>
   );
 }
