@@ -4,6 +4,10 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Button from './Button'
 import './MyCard.css';
+import ChecklistIcon from '@mui/icons-material/Checklist';
+import DescriptionIcon from '@mui/icons-material/Description';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import {Container, Stack} from "@mui/material";
 
 interface componentProps {
     title: string;
@@ -25,9 +29,26 @@ const MyCard: React.FC<componentProps> = ({title, content}) => {
                     {content}
                 </div>
                 </Typography>
-            <Button title="Check In" size="small"/> <t></t>
-            <Button title="View Checklist" size="small"/> <t></t>
-            <Button title="View Itinerary" size="small"/> 
+                <Stack spacing={5} direction="row">
+                    <Button 
+                        title="Check In" 
+                        size="small" 
+                        variant="outlined"
+                        icon = {<PersonAddIcon color="action" fontSize='large' />}
+                    />
+                    <Button 
+                        title="View Checklist" 
+                        size="small" 
+                        variant="outlined" 
+                        icon={<ChecklistIcon color="action" fontSize='large' />}
+                    /> 
+                    <Button 
+                        title="View Itinerary" 
+                        size="small" 
+                        variant="outlined"
+                        icon={<DescriptionIcon color="action" fontSize='large'/>} 
+                    />
+                </Stack> 
             </CardContent>
 
         </Card>
