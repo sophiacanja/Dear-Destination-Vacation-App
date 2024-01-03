@@ -18,6 +18,7 @@ const VacationTable: React.FC = () => {
     const APIHeaders = {
         "Content-Type" : "application/json"
     }
+    // this use effect calls the get api endpoint, turns the response body into a json obj, the data is stored in variable vacations 
     useEffect(()=>{
         fetch('https://qtlldz9f9l.execute-api.us-west-1.amazonaws.com/dev/get-vacation', {
             method: 'GET',
@@ -38,10 +39,12 @@ const VacationTable: React.FC = () => {
         <div className = "container">
             <Container maxWidth="sm">
                 { vacations.map((vacation) => (
+                    <div id="vacation-table">
                         <MyCard 
                             title={vacation.Location} 
                             content={`Departure Date: ${vacation.DepartureDate}`}
-                    />
+                        />
+                    </div>
                 ))}
             </Container>
         </div>
