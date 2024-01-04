@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -7,11 +7,21 @@ import './MyCard.css';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import DescriptionIcon from '@mui/icons-material/Description';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ChecklistModal from './ChecklistModal.tsx'
 import {Container, Stack} from "@mui/material";
 
 interface componentProps {
     title: string;
     content: string;
+}
+
+const [isChecklistModalOpen, setIsChecklistModalOpen] = useState(false)
+const openChecklistModal = () => {
+    setIsChecklistModalOpen(true)
+}
+
+const closeChecklistModal = () => {
+    setIsChecklistModalOpen(false)
 }
 
 const MyCard: React.FC<componentProps> = ({title, content}) => {
@@ -40,9 +50,16 @@ const MyCard: React.FC<componentProps> = ({title, content}) => {
                         title="View Checklist" 
                         size="small" 
                         variant="outlined" 
-                        
                         icon={<ChecklistIcon color="action" fontSize='large' />}
+                        onClick={ () => openChecklistModal()}
+
                     /> 
+                    {isChecklistModalOpen && 
+                        <ChecklistModal
+                            onClose={closeChecklistModal}
+                            vacationId={1}
+                        />
+                    }
                     <Button 
                         title="View Itinerary" 
                         size="small" 
