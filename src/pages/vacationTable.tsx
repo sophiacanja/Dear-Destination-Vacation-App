@@ -12,62 +12,39 @@ interface Vacation {
     DepartureDate: string
 }
 
-function getVacations(): Promise<Vacation[]>{
-    const headers: Headers = new Headers()
-    headers.set('Content-Type', 'application/json')
-    headers.set('Accept', 'application/json')
-
-    const request: RequestInfo = new Request('https://qtlldz9f9l.execute-api.us-west-1.amazonaws.com/dev/get-vacation',{
-        method: 'GET',
-        headers: headers
-    })
-
-    return fetch(request)
-        .then((res) => {
-            if (!res.ok) {
-            throw new Error(`HTTP error! Status: ${res.status}`);
-            }
-            return res.json();
-        })
-        .then((res) => {
-            console.log(res);
-            return res as Vacation[];
-        })
-        .catch((error) => {
-            console.error('Error during fetch:', error);
-            throw error; // rethrow the error to be caught by the caller
-        });
-}
-
 const VacationTable: React.FC = () => {
     const [vacations, setVacations] = useState<Vacation[]>([]);
 
+    const APIHeaders = {
+        "Content-Type" : "application/json"
+    }
+    // this use effect calls the get api endpoint, turns the response body into a json obj, the data is stored in variable vacations 
     useEffect(()=>{
-        const fetchData = async () => {
-            try {
-                const data = await getVacations();
-                if (Array.isArray(data)) {
-                    setVacations(data);
-                }
-                else {
-                    console.error("invalid data format:", data);
-                }
-            } catch (error){
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData();
+        fetch('https://qtlldz9f9l.execute-api.us-west-1.amazonaws.com/dev/get-vacation', {
+            method: 'GET',
+            headers: APIHeaders
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            const parsedData = JSON.parse(data.body)
+            setVacations(parsedData)
+        })
+        .catch((err) => {
+            console.error(err.message)
+        })
     }, [])
 
     return(
         <div className = "container">
             <Container maxWidth="sm">
-                {vacations.map((vacation) => (
-                    <MyCard 
-                        title={vacation.Location} 
-                        content="hello"
-                        // content={`Departure Date: ${vacation.DepartureDate}`}
-                    />
+                { vacations.map((vacation) => (
+                    <div id="vacation-table">
+                        <MyCard 
+                            title={vacation.Location} 
+                            content={`Departure Date: ${vacation.DepartureDate}`}
+                        />
+                    </div>
                 ))}
             </Container>
         </div>

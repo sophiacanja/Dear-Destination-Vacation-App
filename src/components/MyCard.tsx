@@ -40,6 +40,7 @@ const MyCard: React.FC<componentProps> = ({title, content}) => {
                         title="View Checklist" 
                         size="small" 
                         variant="outlined" 
+                        
                         icon={<ChecklistIcon color="action" fontSize='large' />}
                     /> 
                     <Button 
