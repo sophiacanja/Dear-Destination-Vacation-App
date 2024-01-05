@@ -15,16 +15,17 @@ interface componentProps {
     content: string;
 }
 
-const [isChecklistModalOpen, setIsChecklistModalOpen] = useState(false)
-const openChecklistModal = () => {
-    setIsChecklistModalOpen(true)
-}
-
-const closeChecklistModal = () => {
-    setIsChecklistModalOpen(false)
-}
 
 const MyCard: React.FC<componentProps> = ({title, content}) => {
+    const [isChecklistModalOpen, setIsChecklistModalOpen] = useState(false)
+    const closeChecklistModal = () => {
+        setIsChecklistModalOpen(false)
+    }
+
+    const openChecklistModal = () => {
+        setIsChecklistModalOpen(true)
+    }
+
     return(
         <Card className="vacation-card">
             <CardContent>
@@ -56,8 +57,9 @@ const MyCard: React.FC<componentProps> = ({title, content}) => {
                     /> 
                     {isChecklistModalOpen && 
                         <ChecklistModal
+                            open={isChecklistModalOpen}
                             onClose={closeChecklistModal}
-                            vacationId={1}
+                            vacationLocation={"Sanwally"}
                         />
                     }
                     <Button 
