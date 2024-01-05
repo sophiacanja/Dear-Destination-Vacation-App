@@ -13,10 +13,11 @@ import {Container, Stack} from "@mui/material";
 interface componentProps {
     title: string;
     content: string;
+    vacationId: string;
 }
 
 
-const MyCard: React.FC<componentProps> = ({title, content}) => {
+const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
     const [isChecklistModalOpen, setIsChecklistModalOpen] = useState(false)
     const closeChecklistModal = () => {
         setIsChecklistModalOpen(false)
@@ -59,7 +60,8 @@ const MyCard: React.FC<componentProps> = ({title, content}) => {
                         <ChecklistModal
                             open={isChecklistModalOpen}
                             onClose={closeChecklistModal}
-                            vacationLocation={"Sanwally"}
+                            vacationLocation={title}
+                            vacationId={vacationId}
                         />
                     }
                     <Button 

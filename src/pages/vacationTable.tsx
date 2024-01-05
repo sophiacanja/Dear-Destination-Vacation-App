@@ -43,6 +43,7 @@ const VacationTable: React.FC = () => {
                         <MyCard 
                             title={vacation.Location} 
                             content={`Departure Date: ${vacation.DepartureDate}`}
+                            vacationId={vacation.VacationId}
                         />
                     </div>
                 ))}

@@ -1,29 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from './Button.tsx';
 import './ChecklistModal.css'
 import {Modal, Typography, Box} from "@mui/material";
+import { json } from 'stream/consumers';
 
 // https://vf24p8yepd.execute-api.us-west-1.amazonaws.com/dev/get-checklist 
 type ChecklistModalProps = {
-    onClose: () => void
-    open: boolean
-    vacationId: number 
+    onClose: () => void;
+    open: boolean;
+    vacationId: string;
+    vacationLocation: string; 
 }
 
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    borderRadius: 5,
-    p: 4,
-  };
+interface ChecklistInfo {
+    ChecklistId: string,
+    Item: string,
+    VacationId: string
+}
 
-const ChecklistModal: React.FC<ChecklistModalProps> = ({open, onClose, vacationLocation}) => {
+const ChecklistModal: React.FC<ChecklistModalProps> = ({open, onClose, vacationLocation, vacationId}) => {
+    const [checklistItems, setChecklistItems] = useState<ChecklistInfo>({
+        ChecklistId: "",
+        Item: "",
+        VacationId: ""
+    });
+
+    var headersAPI: any = {
+        vacation_id : vacationId
+    }
+
+    console.log("Vacation id " + vacationId)
+    console.log(headersAPI)
+    useEffect(() => {
+        fetch(`https://vf24p8yepd.execute-api.us-west-1.amazonaws.com/dev/get-checklist`, {
+            method: 'GET',
+            headers: headersAPI
+        })
+        .then((response) => response.json()) 
+        .then((data) => {
+            console.log(data)
+            
+        })
+        .catch((err) => {
+            console.error(err.message)
+        })
+
+    }, [])
+
     return(
         <Modal
             open={open}
@@ -33,7 +56,7 @@ const ChecklistModal: React.FC<ChecklistModalProps> = ({open, onClose, vacationL
         >
             <div id="checklist-modal-container">
                 <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2}}>
-                Checklist for {vacationLocation}
+                Trip Checklist: {vacationLocation} 
                 </Typography>
            
                 <Button title="Close" onClick={onClose} size="small" variant='contained'/>
