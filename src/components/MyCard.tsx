@@ -28,7 +28,8 @@ const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
     }
 
     return(
-        <Card className="vacation-card">
+        <div className="vacation-card">
+        <Card>
             <CardContent>
                 <Typography variant="h5" component="div">
                 <header> 
@@ -74,6 +75,7 @@ const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
             </CardContent>
 
         </Card>
+        </div>
     )
 }
 

@@ -1,5 +1,6 @@
-.container {
+#vacation-table-container {
     padding-top: 30px;
+    height: 100vh;
 }
 
 #vacation-table {

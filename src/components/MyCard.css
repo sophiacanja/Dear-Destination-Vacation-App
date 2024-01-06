@@ -1,5 +1,6 @@
 .vacation-card {
     border: 2px solid;
     max-width: 700px;
-    box-shadow: pink;
+    box-shadow: 3px 6px 10px #6f6654;
+    border-radius: 10px;
 }
