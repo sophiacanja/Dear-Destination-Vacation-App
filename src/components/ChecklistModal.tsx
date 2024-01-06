@@ -20,7 +20,7 @@ const ChecklistModal: React.FC<ChecklistModalProps> = ({open, onClose, vacationL
     var headersAPI: any = {
         "vacation_id" : vacationId
     }
-    console.log('Vacation id: ', vacationId)
+    // console.log('Vacation id: ', vacationId)
     useEffect(() => {
         fetch(`https://vf24p8yepd.execute-api.us-west-1.amazonaws.com/dev/get-checklist`, {
             method: 'GET',
@@ -33,7 +33,7 @@ const ChecklistModal: React.FC<ChecklistModalProps> = ({open, onClose, vacationL
                     return item.Item
                     // console.log(item.Item)
                 })
-            console.log("Temp checklist", tempChecklistArr)
+            // console.log("Temp checklist", tempChecklistArr)
             setChecklistArr(tempChecklistArr)
             console.log("Updated Checklist Items:", checklistArr);  
             }
