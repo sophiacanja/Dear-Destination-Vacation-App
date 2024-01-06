@@ -26,11 +26,11 @@ const ChecklistModal: React.FC<ChecklistModalProps> = ({open, onClose, vacationL
     });
 
     var headersAPI: any = {
-        vacation_id : vacationId
+        "vacation_id" : vacationId
     }
 
-    console.log("Vacation id " + vacationId)
-    console.log(headersAPI)
+    // console.log("Vacation id " + vacationId)
+    // console.log(headersAPI)
     useEffect(() => {
         fetch(`https://vf24p8yepd.execute-api.us-west-1.amazonaws.com/dev/get-checklist`, {
             method: 'GET',
@@ -38,14 +38,23 @@ const ChecklistModal: React.FC<ChecklistModalProps> = ({open, onClose, vacationL
         })
         .then((response) => response.json()) 
         .then((data) => {
-            console.log(data)
+            if(data[0] !== undefined){
+                setChecklistItems({Item : data[0].item, ChecklistId : data[0].ChecklistId, VacationId:data[0].VacationId})
+                console.log(checklistItems)
+                console.log(data)
+            }
+            
+            else {
+                console.log("DATA RESPONSE IS UNDEF")
+                console.log(data)
+            }
             
         })
         .catch((err) => {
             console.error(err.message)
         })
 
-    }, [])
+    }, [vacationId])
 
     return(
         <Modal
