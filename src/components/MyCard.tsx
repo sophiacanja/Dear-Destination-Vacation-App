@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -7,16 +7,29 @@ import './MyCard.css';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import DescriptionIcon from '@mui/icons-material/Description';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ChecklistModal from './ChecklistModal.tsx'
 import {Container, Stack} from "@mui/material";
 
 interface componentProps {
     title: string;
     content: string;
+    vacationId: string;
 }
 
-const MyCard: React.FC<componentProps> = ({title, content}) => {
+
+const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
+    const [isChecklistModalOpen, setIsChecklistModalOpen] = useState(false)
+    const closeChecklistModal = () => {
+        setIsChecklistModalOpen(false)
+    }
+
+    const openChecklistModal = () => {
+        setIsChecklistModalOpen(true)
+    }
+
     return(
-        <Card className="vacation-card">
+        <div className="vacation-card">
+        <Card>
             <CardContent>
                 <Typography variant="h5" component="div">
                 <header> 
@@ -40,9 +53,18 @@ const MyCard: React.FC<componentProps> = ({title, content}) => {
                         title="View Checklist" 
                         size="small" 
                         variant="outlined" 
-                        
                         icon={<ChecklistIcon color="action" fontSize='large' />}
+                        onClick={ () => openChecklistModal()}
+
                     /> 
+                    {isChecklistModalOpen && 
+                        <ChecklistModal
+                            open={isChecklistModalOpen}
+                            onClose={closeChecklistModal}
+                            vacationLocation={title}
+                            vacationId={vacationId}
+                        />
+                    }
                     <Button 
                         title="View Itinerary" 
                         size="small" 
@@ -53,6 +75,7 @@ const MyCard: React.FC<componentProps> = ({title, content}) => {
             </CardContent>
 
         </Card>
+        </div>
     )
 }
 

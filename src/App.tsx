@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from './pages/header';
-import logo from './logo.svg';
 import './App.css';
 import VacationTable from './pages/vacationTable';
 import Grid from '@mui/material/Grid';
@@ -11,15 +10,14 @@ function App() {
   return (
     <div className="App">
       <Header></Header>
-      <div className="table-calendar-container">
-        <Grid container spacing={0} columnSpacing={{ xs: 0}}> 
-          <Grid item xs={6} >
+      <div id="table-calendar-container">
+        <div className = "split-container-left"> 
             <VacationTable></VacationTable>
-          </Grid>
-          <Grid item xs={6} style={{ margin: '0', marginTop: '10px' }}>
+        </div>
+
+        <div className = "split-container-right"> 
             <Calendar></Calendar>
-          </Grid>
-        </Grid>
+        </div>
       </div>
     </div>
   );

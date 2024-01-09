@@ -36,13 +36,14 @@ const VacationTable: React.FC = () => {
     }, [])
 
     return(
-        <div className = "container">
+        <div id = "vacation-table-container">
             <Container maxWidth="sm">
                 { vacations.map((vacation) => (
                     <div id="vacation-table">
                         <MyCard 
                             title={vacation.Location} 
                             content={`Departure Date: ${vacation.DepartureDate}`}
+                            vacationId={vacation.VacationId}
                         />
                     </div>
                 ))}
