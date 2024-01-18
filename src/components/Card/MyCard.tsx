@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import Button from './Button'
+import Button from '../Button/Button.tsx'
 import './MyCard.css';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import DescriptionIcon from '@mui/icons-material/Description';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import ChecklistModal from './ChecklistModal.tsx'
+import ChecklistModal from '../Modals/ChecklistModal/ChecklistModal.tsx'
 import {Container, Stack} from "@mui/material";
 
 interface componentProps {

@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from './pages/header';
+import Header from './pages/Header/header.tsx';
 import './App.css';
-import VacationTable from './pages/vacationTable';
+import VacationTable from './pages/VacationTable/vacationTable.tsx';
 import Grid from '@mui/material/Grid';
-import Calendar from './components/Calendar.tsx';
+import Calendar from './components/Calendar/Calendar.tsx';
 
 
 function App() {

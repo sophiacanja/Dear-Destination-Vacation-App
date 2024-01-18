@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import Button from '../components/Button.tsx'
-import MyCard from '../components/MyCard';
+import Button from '../../components/Button/Button.tsx'
+import MyCard from '../../components/Card/MyCard.tsx';
 import Container from '@mui/material/Container';
 import './vacationTable.css';
 

@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import Button from '../components/Button.tsx'
+import Button from '../Button/Button.tsx'
 import './Calendar.css'
 
 const handleButtonClick = () => {
