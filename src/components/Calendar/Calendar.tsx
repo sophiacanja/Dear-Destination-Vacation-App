@@ -34,8 +34,6 @@ const Calendar: React.FC = () => {
                 <AddVacationModal
                     open={isAddVacationModalOpen}
                     onClose={closeAddvacationModal}
-                    location='Test'
-                    departureDate={ new Date()}
                 />
             }
         </div>
