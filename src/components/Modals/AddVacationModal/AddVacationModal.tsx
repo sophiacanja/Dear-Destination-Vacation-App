@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '../../Button/Button.tsx';
 import './AddVacationModal.css'
 import {Modal, Typography, Box} from "@mui/material";
+import {Stack} from "@mui/material";
 
 type AddVacationModalProps = {
     onClose: () => void; 
@@ -22,11 +23,13 @@ const AddVacationModal: React.FC<AddVacationModalProps> = ({open, onClose, locat
             aria-labelledby="add-vacation-modal"
             aria-describedby="add-vacation-modal-description"
         >
-            <div> hello world {location}
-            <Button title="Check In" onClick={onClose} size="small" variant='contained'/>
-            <Button title="Cancel" onClick={onClose} size="small" variant='outlined'/>
-
-            </div>
+        <div id="add-vacation-modal-container"> hello world {location}
+            <Stack spacing={3} direction="row">
+                <Button title="Check In" onClick={onClose} size="small" variant='contained' /> 
+                <Button title="Cancel" onClick={onClose} size="small" variant='outlined' />
+            </Stack>
+          
+        </div>
         </Modal>
 
     )
