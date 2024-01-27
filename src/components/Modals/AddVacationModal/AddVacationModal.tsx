@@ -25,8 +25,25 @@ const AddVacationModal: React.FC<AddVacationModalProps> = ({open, onClose}) => {
 
     var headersAPI: any ={
         "location" : inputLocation,
-        "departure_date" : startDate
+        "departure_date" : startDate?.toISOString()
     }
+
+const handleAddVacation = () => {
+    fetch(`https://zjb2711d56.execute-api.us-west-1.amazonaws.com/dev`, {
+        method:'POST',
+        headers: headersAPI
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("POST request successful ", data)
+            onClose();
+        })
+    .catch((err) => {
+        console.error("Error making POST request ", err.message)
+    })
+}
+
+    
     return(
         <Modal
             open={open}
@@ -68,7 +85,7 @@ const AddVacationModal: React.FC<AddVacationModalProps> = ({open, onClose}) => {
                 </LocalizationProvider>
             
                 <Stack justifyContent="center" spacing={3} direction="row">
-                    <Button title="Add Vacation" onClick={onClose} size="small" variant='contained' /> 
+                    <Button title="Add Vacation" onClick={handleAddVacation} size="small" variant='contained' /> 
                     <Button title="Cancel" onClick={onClose} size="small" variant='outlined' />
                 </Stack>
             </Stack>
