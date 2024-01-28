@@ -19,6 +19,16 @@ interface componentProps {
 
 const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
     const [isChecklistModalOpen, setIsChecklistModalOpen] = useState(false)
+    const [isItineraryModalOpen, setIsItineraryModalOpen] = useState(false)
+
+    const closeItineraryModal = () => {
+        setIsItineraryModalOpen(false)
+    }
+
+    const openItineraryModal = () => {
+        setIsItineraryModalOpen(true)
+    }
+
     const closeChecklistModal = () => {
         setIsChecklistModalOpen(false)
     }
@@ -70,7 +80,14 @@ const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
                         size="small" 
                         variant="outlined"
                         icon={<DescriptionIcon color="action" fontSize='large'/>} 
+                        onClick={ () => openItineraryModal()}
                     />
+                    {/* {isItineraryModalOpen && 
+                        <isItineraryModalOpen
+                            open={isItineraryModalOpen}
+                            onClose={closeItineraryModal}
+
+                    } */}
                 </Stack> 
             </CardContent>
 
