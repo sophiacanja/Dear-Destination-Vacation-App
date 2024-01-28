@@ -7,7 +7,9 @@ import './MyCard.css';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import DescriptionIcon from '@mui/icons-material/Description';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+
 import ChecklistModal from '../Modals/ViewChecklist/ViewChecklist.tsx'
+import ItineraryModal from '../Modals/ViewItinerary/ViewItinerary.tsx'
 import {Container, Stack} from "@mui/material";
 
 interface componentProps {
@@ -19,6 +21,16 @@ interface componentProps {
 
 const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
     const [isChecklistModalOpen, setIsChecklistModalOpen] = useState(false)
+    const [isItineraryModalOpen, setIsItineraryModalOpen] = useState(false)
+
+    const closeItineraryModal = () => {
+        setIsItineraryModalOpen(false)
+    }
+
+    const openItineraryModal = () => {
+        setIsItineraryModalOpen(true)
+    }
+
     const closeChecklistModal = () => {
         setIsChecklistModalOpen(false)
     }
@@ -70,7 +82,15 @@ const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
                         size="small" 
                         variant="outlined"
                         icon={<DescriptionIcon color="action" fontSize='large'/>} 
+                        onClick={ () => openItineraryModal()}
                     />
+                    {isItineraryModalOpen && 
+                        <ItineraryModal
+                            open={isItineraryModalOpen}
+                            onClose={closeItineraryModal}
+                            vacationId={vacationId}
+                        />
+                    }
                 </Stack> 
             </CardContent>
 

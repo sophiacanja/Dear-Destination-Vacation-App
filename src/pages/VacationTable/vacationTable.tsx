@@ -37,6 +37,7 @@ const VacationTable: React.FC = () => {
 
     return(
         <div id = "vacation-table-container">
+            <header id="sub-title"> My Upcoming Trips!</header>
             <Container maxWidth="sm">
                 { vacations.map((vacation) => (
                     <div id="vacation-table">

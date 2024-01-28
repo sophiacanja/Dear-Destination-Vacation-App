@@ -21,15 +21,18 @@ const AddVacationModal: React.FC<AddVacationModalProps> = ({open, onClose}) => {
     const [endDate, setEndDate] = React.useState<Dayjs | null>(dayjs('2023-01-18'));
     const [inputLocation, setLocation] = React.useState("Enter Location");
 
-    var headersAPI: any ={
+    // TODO: IMPLEMENT REFRESH AFTER ADDING THE VACATION
+    const refresh = () => window.location.reload()
+
+    var bodyAPI: any ={
         "location" : inputLocation,
         "departure_date" : startDate?.toISOString()
     }
 
 const handleAddVacation = () => {
-    fetch(`https://zjb2711d56.execute-api.us-west-1.amazonaws.com/dev`, {
+    fetch(`https://zjb2711d56.execute-api.us-west-1.amazonaws.com/dev/post-vacation`, {
         method:'POST',
-        headers: headersAPI
+        body: JSON.stringify(bodyAPI)
     })
         .then((response) => response.json())
         .then((data) => {

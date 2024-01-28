@@ -10,6 +10,21 @@
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+#sub-title {
+  padding-top: 30px;
+  font-size: 30px;
+  color: #282c34;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#signature-title {
+  margin-top: 10%;
+  margin-left: 55%;
+  font-size: 30px;
+  color: #282c34;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 #table-calendar-container{
   display: flex;
   justify-content: space-between;
@@ -23,6 +38,17 @@
   width:50%;
   margin-left: 20%;
 }
+
+#scroll-container{
+  margin-top: 20%;
+  max-height: 60%;
+  overflow-y: scroll;  
+  flex: 33%;
+  background-color: #dad2c0;
+  border-radius: 10px;
+  border: 2px solid;
+}
+
 
 .split-container-right{
   width:50%;
