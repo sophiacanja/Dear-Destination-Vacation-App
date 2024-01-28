@@ -14,8 +14,6 @@ import dayjs, { Dayjs } from 'dayjs';
 type AddVacationModalProps = {
     onClose: () => void; 
     open: boolean;
-    location: string;
-    departureDate: Date; 
 }
 
 const AddVacationModal: React.FC<AddVacationModalProps> = ({open, onClose}) => {

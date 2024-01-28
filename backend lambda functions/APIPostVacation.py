@@ -25,14 +25,27 @@ def lambda_handler(event, context):
         cursor = connection.cursor()
     except Exception as e:
         logger.error(f"Error with pymyql connection: {e}")
-        
-    # retrieve input data/ table data from Lambda event
-    request_headers = event["headers"]
-    location = request_headers['location']
-    departure_date = request_headers['departure_date']
-    #datestring example to be passed in date_string = "01-01-2023 12:30:45"
-    date_format = "%m-%d-%Y %H:%M:%S"
-    date_object = datetime.strptime(departure_date, date_format)
+        return {
+            'statusCode' : 500,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps(f"Database connection failed")
+        }
+    try:
+        # retrieve input data/ table data from Lambda event
+        request_headers = event["headers"]
+        location = request_headers['location']
+        departure_date = request_headers['departure_date']
+        #datestring example to be passed in date_string = "01-01-2023 12:30:45"
+        date_format = "%m-%d-%Y %H:%M:%S"
+        date_object = datetime.strptime(departure_date, date_format)
+      
+    except Exception as e:
+        logger.error(f"Malformed headers: {e}")
+        return {
+            'statusCode' : 400,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps(f"Malformed request")
+        } 
     
     try:
         cursor = connection.cursor() 
@@ -64,8 +77,9 @@ def lambda_handler(event, context):
         connection.commit()
         connection.close() 
         return{
-            statusCode: 200, 
-            # body: json.dumps("Successfully added vacation into database")
+            'statusCode': 200, 
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps("Successfully added vacation into database")
         }
         
         #used for printing out contents in CheckIn table in db
@@ -76,3 +90,8 @@ def lambda_handler(event, context):
             
     except Exception as e:
         print("Error:", str(e))
+        return {
+            'statusCode' : 500,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps(f"Database query failed")
+        }
