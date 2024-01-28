@@ -5,24 +5,27 @@ import json
 import logging
 from botocore.exceptions import ClientError
 
+#set logging 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
-client = boto3.client('secretsmanager')
-response = client.get_secret_value(SecretId='vacationAppDb/MySQL')
-
-secretDict = json.loads(response['SecretString'])
-# print("Secret Dict:", secretDict)
-endpoint = secretDict['host']
-username = secretDict['username']
-password = secretDict['password']
-database_name = 'vacationAppDb'
 
 
 def lambda_handler(event, context):
     try:
+        #getting database information
+        client = boto3.client('secretsmanager')
+        response = client.get_secret_value(SecretId='vacationAppDb/MySQL')
+        
+        secretDict = json.loads(response['SecretString'])
+        endpoint = secretDict['host']
+        username = secretDict['username']
+        password = secretDict['password']
+        database_name = 'vacationAppDb'
+        
+        #creating db connection
         connection = pymysql.connect(host=endpoint, user=username, password=password, db=database_name)
         cursor = connection.cursor()
+        
     except Exception as e:
         logger.error(f"Error with pymyql connection: {e}")
         return {
@@ -30,14 +33,15 @@ def lambda_handler(event, context):
             'headers': {'Access-Control-Allow-Origin': '*'},
             'body': json.dumps(f"Database connection failed")
         }
+    
     try:
-        # retrieve input data/ table data from Lambda event
-        request_headers = event["headers"]
-        location = request_headers['location']
-        departure_date = request_headers['departure_date']
-        #datestring example to be passed in date_string = "01-01-2023 12:30:45"
-        date_format = "%m-%d-%Y %H:%M:%S"
-        date_object = datetime.strptime(departure_date, date_format)
+        # set variables from request
+        logger.info(event)
+        location = event["location"]
+        departure_date = event["departure_date"]
+        date_object = datetime.fromisoformat(departure_date[:-1]) 
+        logger.info(f"Event Departure date {departure_date}")
+        logger.info(f"Converted date object {date_object}")
       
     except Exception as e:
         logger.error(f"Malformed headers: {e}")
@@ -48,48 +52,33 @@ def lambda_handler(event, context):
         } 
     
     try:
-        cursor = connection.cursor() 
+        insert_query = """
+            INSERT INTO Vacation (Location, DepartureDate)  
+            VALUES (%s, %s)
+        """
         
-        # insert_query = (
-        #     "INSERT INTO Vacation (Location, DepartureDate)"
-        #     "VALUES (%s, %s)"
-        # )
-        
-        # data = (location, date_object)
-        
-        insert_query = ( 
-            "SELECT * FROM vacationAppDb.Checklist"
-        
-            # "INSERT INTO Checklist (VacationId, Item)"   
-            # "VALUES (%s, %s, %s)"
-        )
-        # data = ("1", "Surfboard")
+        data = (location, date_object)
         
         #calls sql insert statement and inserts data into database
-        cursor.execute(insert_query)
-        output= cursor.fetchall
-        print(output)
-        # rows = cursor.fetchall() 
-        # for row in rows: 
-        #     print(row)
+        cursor.execute(insert_query, data)
+        connection.commit() 
         
-        #commits query to the database 
-        connection.commit()
+        #outputing rows from database for logging
+        cursor.execute("SELECT * FROM Vacation")
+        rows = cursor.fetchall() 
+        for row in rows: 
+            logger.info(f"Rows in the database, with newly added vacation: {row}")
+        
         connection.close() 
+        
         return{
             'statusCode': 200, 
             'headers': {'Access-Control-Allow-Origin': '*'},
             'body': json.dumps("Successfully added vacation into database")
         }
         
-        #used for printing out contents in CheckIn table in db
-        # cursor.execute("SELECT * FROM Vacation")
-        # rows = cursor.fetchall() 
-        # for row in rows: 
-        #     print(row)
-            
     except Exception as e:
-        print("Error:", str(e))
+        logger.error("Error thrown in try for inserting into vacation db:", str(e))
         return {
             'statusCode' : 500,
             'headers': {'Access-Control-Allow-Origin': '*'},
