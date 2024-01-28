@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../../Button/Button.tsx';
-import './ChecklistModal.css'
+import './ViewChecklist.css'
 import {Modal, Typography, Box} from "@mui/material";
 import { json } from 'stream/consumers';
 import { isTemplateElement } from '@babel/types';

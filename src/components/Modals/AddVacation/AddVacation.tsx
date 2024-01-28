@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../../Button/Button.tsx';
-import './AddVacationModal.css'
+import './AddVacation.css'
 import {Modal, Typography, Box} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import {Stack} from "@mui/material";
