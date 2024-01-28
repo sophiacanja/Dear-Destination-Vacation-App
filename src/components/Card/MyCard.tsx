@@ -7,7 +7,7 @@ import './MyCard.css';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import DescriptionIcon from '@mui/icons-material/Description';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import ChecklistModal from '../Modals/ChecklistModal/ChecklistModal.tsx'
+import ChecklistModal from '../Modals/ViewChecklist/ViewChecklist.tsx'
 import {Container, Stack} from "@mui/material";
 
 interface componentProps {

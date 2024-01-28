@@ -5,7 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Button from '../Button/Button.tsx'
 import './Calendar.css'
-import AddVacationModal from '../Modals/AddVacationModal/AddVacationModal.tsx';
+import AddVacationModal from '../Modals/AddVacation/AddVacation.tsx';
 
 
 const Calendar: React.FC = () => {
