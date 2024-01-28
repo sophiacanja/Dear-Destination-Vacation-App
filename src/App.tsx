@@ -12,11 +12,16 @@ function App() {
       <Header></Header>
       <div id="table-calendar-container">
         <div className = "split-container-left"> 
+        <div id="scroll-container">
             <VacationTable></VacationTable>
+        </div>
         </div>
 
         <div className = "split-container-right"> 
             <Calendar></Calendar>
+            <div id="signature-title">
+              Yours Truly, <br></br> Sophia Canja
+            </div>
         </div>
       </div>
     </div>

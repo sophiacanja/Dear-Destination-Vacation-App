@@ -12,6 +12,26 @@ type ItineraryModalProps = {
 
 const ViewItineraryModal: React.FC<ItineraryModalProps> = ({open, onClose, vacationId }) => {
 
+var headersAPI: any = {
+    "Content-Type" : "application/json",
+    "vacation_id" : vacationId
+}
+
+useEffect(() => {
+    fetch(`https://ddewbg59ti.execute-api.us-west-1.amazonaws.com/dev`, {
+        method: 'GET',
+        headers: headersAPI
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data)
+    })
+
+    .catch((err) => {
+        console.error(err.message)
+    })
+}, [vacationId])
+
     return (
         <Modal
             open={open}
