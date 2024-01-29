@@ -10,27 +10,41 @@ type ItineraryModalProps = {
     vacationId: string
 }
 
+interface ItineraryDataInterface{
+    activities : string; 
+    messages : string;
+    restaurants: string;
+    vacationId : number;
+}
+
 const ViewItineraryModal: React.FC<ItineraryModalProps> = ({open, onClose, vacationId }) => {
+    const [data, setData] = useState<ItineraryDataInterface[]>([])
 
 var headersAPI: any = {
     "vacation_id" : vacationId
 }
-
+console.log("vacation id headers ", vacationId)
 useEffect(() => {
     fetch(`https://ddewbg59ti.execute-api.us-west-1.amazonaws.com/dev/get-itinerary`, {
         method: 'GET',
         headers: headersAPI
     })
     .then((response) => response.json())
-    .then((data) => {
-        console.log(data)
-        console.log("HERE IN VIEW ITINERARY API CALL RETURNED!")
+    .then((responseData) => {
+        if(responseData && responseData.length > 0 ) {
+            console.log(responseData)
+            setData(responseData[0])
+        }
     })
 
     .catch((err) => {
         console.error(err.message)
     })
 }, [vacationId])
+
+useEffect(() => {
+    console.log("USE EFFECT Updated Itinerary Data:", data);
+    }, [data]);
 
     return (
         <Modal
