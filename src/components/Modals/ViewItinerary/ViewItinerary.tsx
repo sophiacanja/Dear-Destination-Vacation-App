@@ -11,14 +11,15 @@ type ItineraryModalProps = {
 }
 
 interface ItineraryDataInterface{
-    activities : string; 
-    messages : string;
-    restaurants: string;
-    vacationId : number;
+    Activities : string; 
+    Message : string;
+    Restaurants: string;
+    VacationId : number;
 }
 
 const ViewItineraryModal: React.FC<ItineraryModalProps> = ({open, onClose, vacationId }) => {
-    const [data, setData] = useState<ItineraryDataInterface[]>([])
+    const [data, setData] = useState<ItineraryDataInterface | null>(null);
+    const [messageArr, setMessageArr] = useState([])
 
 var headersAPI: any = {
     "vacation_id" : vacationId
@@ -32,8 +33,9 @@ useEffect(() => {
     .then((response) => response.json())
     .then((responseData) => {
         if(responseData && responseData.length > 0 ) {
-            console.log(responseData)
-            setData(responseData[0])
+            console.log("response data", responseData)
+            setData(responseData)
+            
         }
     })
 
@@ -44,7 +46,23 @@ useEffect(() => {
 
 useEffect(() => {
     console.log("USE EFFECT Updated Itinerary Data:", data);
+    if (data){
+        const message = formatMessage(data[0].Message)
+        
+        setMessageArr(data[0].Message)
+    }
     }, [data]);
+
+const formatMessage = (message: string): string => {
+    let formattedMessage = "" 
+    for(let i = 0; i < message.length ; i++){
+        if (message[i] == "'" || message[i] == "}" || message[i] == "{"){
+            formattedMessage = message.replace(message[i], "")
+        }
+    }
+    console.log("formatted message function ", formattedMessage)
+    return formattedMessage
+}
 
     return (
         <Modal
@@ -54,9 +72,21 @@ useEffect(() => {
             aria-describedby="itinerary-modal-description"
         >
             <div id="itinerary-modal-container">
-                <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2}}>
-                    Trip Itinerary
+                <Typography id="checklist-modal" variant="h3" component="h2" sx={{mt:2}}>
+                    Trip Itinerary:
                 </Typography>
+
+                <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2}}>
+                    Group Comments:
+                </Typography>
+
+                {/* {messageArr && (
+          <Typography variant="h6" component="h2" sx={{ mt: 2 }}>
+            {messageArr.map((item) => <div> {item} </div>)}
+          </Typography>
+        )} */}
+
+                <Button title="Close" onClick={onClose} size="small" variant='contained'/>
             </div>
         </Modal>
         
