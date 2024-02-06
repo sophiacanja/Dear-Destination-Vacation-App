@@ -11,7 +11,7 @@ type ItineraryModalProps = {
 }
 
 interface ItineraryDataInterface{
-    Activities : string; 
+    Activities : []; 
     Message : string;
     Restaurants: string;
     VacationId : number;
@@ -19,7 +19,9 @@ interface ItineraryDataInterface{
 
 const ViewItineraryModal: React.FC<ItineraryModalProps> = ({open, onClose, vacationId }) => {
     const [data, setData] = useState<ItineraryDataInterface | null>(null);
-    const [messageArr, setMessageArr] = useState([])
+    const [messageArr, setMessageArr] = useState<string[]>([])
+    const [activitiesArr, setActivitiesArr] = useState<string[]>([])
+    const [restaurantsArr, setRestaurantsArr] = useState<string[]>([])
 
 var headersAPI: any = {
     "vacation_id" : vacationId
@@ -35,7 +37,9 @@ useEffect(() => {
         if(responseData && responseData.length > 0 ) {
             console.log("response data", responseData)
             setData(responseData)
-            
+            setMessageArr(formatData(responseData[0].Message))
+            setActivitiesArr(formatData(responseData[0].Activities))
+            setRestaurantsArr(formatData(responseData[0].Restaurants))
         }
     })
 
@@ -45,23 +49,16 @@ useEffect(() => {
 }, [vacationId])
 
 useEffect(() => {
-    console.log("USE EFFECT Updated Itinerary Data:", data);
-    if (data){
-        const message = formatMessage(data[0].Message)
-        
-        setMessageArr(data[0].Message)
-    }
+    console.log("Updated Itinerary Data:", data);
+    console.log("Messages Returned:", messageArr)
     }, [data]);
 
-const formatMessage = (message: string): string => {
-    let formattedMessage = "" 
-    for(let i = 0; i < message.length ; i++){
-        if (message[i] == "'" || message[i] == "}" || message[i] == "{"){
-            formattedMessage = message.replace(message[i], "")
-        }
-    }
-    console.log("formatted message function ", formattedMessage)
-    return formattedMessage
+// helper function that takes in a dictionary casted to a string and returns an array of each key, val pair
+const formatData = (message: string): string[] => {
+    const formattedMessage = message.replace(/[{}'"]/g, '');
+    const messageList: string[] = formattedMessage.split(',').map(item => item.trim())
+    console.log("formatted list  ", messageList)
+    return messageList
 }
 
     return (
@@ -80,11 +77,31 @@ const formatMessage = (message: string): string => {
                     Group Comments:
                 </Typography>
 
-                {/* {messageArr && (
-          <Typography variant="h6" component="h2" sx={{ mt: 2 }}>
-            {messageArr.map((item) => <div> {item} </div>)}
-          </Typography>
-        )} */}
+                 {messageArr && (
+                    <Typography variant="h6" component="h2" sx={{ mt: 2 }}>
+                        {messageArr.map((item) => <div> {item} </div>)}
+                    </Typography>
+                )} 
+
+                <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2}}>
+                    Activities:
+                </Typography>
+
+                {activitiesArr && (
+                    <Typography variant="h6" component="h2" sx={{ mt: 2 }}>
+                        {activitiesArr.map((item) => <div> {item} </div>)}
+                    </Typography>
+                )}
+
+                <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2}}>
+                    Restaurants:
+                </Typography>
+
+                {restaurantsArr && (
+                    <Typography variant="h6" component="h2" sx={{ mt: 2 }}>
+                        {restaurantsArr.map((item) => <div> {item} </div>)}
+                    </Typography>
+                )}
 
                 <Button title="Close" onClick={onClose} size="small" variant='contained'/>
             </div>
