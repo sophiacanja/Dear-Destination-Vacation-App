@@ -54,7 +54,7 @@ const handleAddVacation = () => {
         >
         <div id="add-vacation-modal-container">
             <div id="modal-header">
-                <Typography variant="h5" component="div">
+                <Typography variant="h4" component="div" sx={{textDecoration:'underline'}}>
                     <header> 
                         Create a New Vacation!
                     </header>

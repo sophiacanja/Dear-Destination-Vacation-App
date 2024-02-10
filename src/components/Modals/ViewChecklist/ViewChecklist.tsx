@@ -58,7 +58,7 @@ useEffect(() => {
             aria-describedby="checklist-modal-description"
         >
             <div id="checklist-modal-container">
-                <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2}}>
+                <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2, textDecoration:'underline'}}>
                 Trip Checklist: {vacationLocation} 
                 </Typography>
                     

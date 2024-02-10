@@ -19,9 +19,9 @@ interface ItineraryDataInterface{
 
 const ViewItineraryModal: React.FC<ItineraryModalProps> = ({open, onClose, vacationId }) => {
     const [data, setData] = useState<ItineraryDataInterface | null>(null);
-    const [messageArr, setMessageArr] = useState<string[]>([])
-    const [activitiesArr, setActivitiesArr] = useState<string[]>([])
-    const [restaurantsArr, setRestaurantsArr] = useState<string[]>([])
+    const [messageArr, setMessageArr] = useState<string[]>(["No messages at this time"])
+    const [activitiesArr, setActivitiesArr] = useState<string[]>(["No activities listed at this time"])
+    const [restaurantsArr, setRestaurantsArr] = useState<string[]>(["No restaurants listed at this time"])
 
 var headersAPI: any = {
     "vacation_id" : vacationId
@@ -69,21 +69,21 @@ const formatData = (message: string): string[] => {
             aria-describedby="itinerary-modal-description"
         >
             <div id="itinerary-modal-container">
-                <Typography id="checklist-modal" variant="h3" component="h2" sx={{mt:2}}>
+                <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2, textDecoration:'underline'}}>
                     Trip Itinerary:
                 </Typography>
 
-                <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2}}>
+                <Typography id="checklist-modal" variant="h5" component="h2" sx={{mt:2}} fontWeight={"bold"}>
                     Group Comments:
                 </Typography>
 
-                 {messageArr && (
+                 {messageArr  && (
                     <Typography variant="h6" component="h2" sx={{ mt: 2 }}>
                         {messageArr.map((item) => <div> {item} </div>)}
                     </Typography>
                 )} 
 
-                <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2}}>
+                <Typography id="checklist-modal" variant="h5" component="h2" sx={{mt:2}} fontWeight={"bold"}>
                     Activities:
                 </Typography>
 
@@ -93,7 +93,7 @@ const formatData = (message: string): string[] => {
                     </Typography>
                 )}
 
-                <Typography id="checklist-modal" variant="h4" component="h2" sx={{mt:2}}>
+                <Typography id="checklist-modal" variant="h5" component="h2" sx={{mt:2}} fontWeight={"bold"}>
                     Restaurants:
                 </Typography>
 
