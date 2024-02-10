@@ -41,7 +41,9 @@ def lambda_handler(event, context):
         #retrieve input data/ table data from Lambda event
         attendeeName = event['AttendeeName']
         vacationId = event['VacationId']
-        checkInLocation = event['CheckInLocation']
+        message = event['Message']
+        paymentType = event['PaymentType']
+        paymentInfo = event['PaymentInfo']
         checkInTime = datetime.datetime.now()
         cursor = connection.cursor() 
     
@@ -54,11 +56,11 @@ def lambda_handler(event, context):
         
     try:
         insert_check_in_table_query = (
-            "INSERT INTO CheckIn (AttendeeName, VacationId, CheckInLocation, CheckInDateTime)"
-            "VALUES (%s, %s, %s, %s)"
+            "INSERT INTO CheckIn (AttendeeName, VacationId, Message, PaymentType, PaymentInfo)"
+            "VALUES (%s, %s, %s, %s, %s)"
         )
         
-        data = (attendeeName, vacationId, checkInLocation, checkInTime)
+        data = (attendeeName, vacationId, message, paymentType, paymentInfo)
         
         #calls sql insert statement and inserts data into database
         cursor.execute(insert_check_in_table_query, data)
