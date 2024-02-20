@@ -1,0 +1,30 @@
+#checkin-modal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    width: 30%;
+    background-color: white;
+    border: 2px solid #000;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+
+.checkin-modal {
+    /* textDecoration:'underline' */
+    text-decoration-line: underline ;
+}
+
+#checkin-modal-description {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#checkin-modal-form-entry {
+    padding-top: 15px;
+    padding-bottom:10px
+}

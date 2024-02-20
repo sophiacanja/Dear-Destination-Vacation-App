@@ -10,6 +10,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import ChecklistModal from '../Modals/ViewChecklist/ViewChecklist.tsx'
 import ItineraryModal from '../Modals/ViewItinerary/ViewItinerary.tsx'
+import CheckinModal from '../Modals/Checkin/Checkin.tsx'
 import {Container, Stack} from "@mui/material";
 
 interface componentProps {
@@ -22,6 +23,7 @@ interface componentProps {
 const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
     const [isChecklistModalOpen, setIsChecklistModalOpen] = useState(false)
     const [isItineraryModalOpen, setIsItineraryModalOpen] = useState(false)
+    const [isCheckinModalOpen, setIsCheckinModalOpen] = useState(false)
 
     const closeItineraryModal = () => {
         setIsItineraryModalOpen(false)
@@ -37,6 +39,14 @@ const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
 
     const openChecklistModal = () => {
         setIsChecklistModalOpen(true)
+    }
+
+    const openCheckinModal = () => {
+        setIsCheckinModalOpen(true)
+    }
+
+    const closeCheckinModal = () => {
+        setIsCheckinModalOpen(false)
     }
 
     return(
@@ -60,7 +70,16 @@ const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
                         size="small" 
                         variant="outlined"
                         icon = {<PersonAddIcon color="action" fontSize='large' />}
+                        onClick={() => openCheckinModal()}
                     />
+                    {isCheckinModalOpen && 
+                        <CheckinModal
+                            open={isCheckinModalOpen}
+                            onClose={() => closeCheckinModal()}
+                            vacationId = {vacationId}
+                        />
+
+                    }
                     <Button 
                         title="View Checklist" 
                         size="small" 
