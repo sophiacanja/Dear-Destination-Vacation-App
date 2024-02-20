@@ -14,6 +14,7 @@ Built with the goal of providing users with a seamless and stress-free vacation 
 
 
 ## Technologies Used
+
 -React.ts
 -Amazon Web Services: Lambda Functions, API Gateway
 -Aurora RDS (Relational Database Service)
