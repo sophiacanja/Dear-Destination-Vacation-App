@@ -2,7 +2,7 @@ import pymysql
 import boto3
 import datetime
 import json
-import logging
+import logging 
 
 #Database Configuration 
 # endpoint = 'vacationapp-dbcluster-instance-1.cmzd0vkepxf7.us-west-1.rds.amazonaws.com'
@@ -10,34 +10,27 @@ import logging
 # password = 'Asdiop123!'
 # database_name = 'vacationAppDb'
 
-#setting up logging 
+#setting logging 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+client = boto3.client('secretsmanager')
+response = client.get_secret_value(SecretId='vacationAppDb/MySQL')
+
+print("hello from line 15")
+secretDict = json.loads(response['SecretString'])
+print("Secret Dict:", secretDict)
+endpoint = secretDict['host']
+username = secretDict['username']
+password = secretDict['password']
+database_name = 'vacationAppDb'
+
+#Connection 
+connection = pymysql.connect(host=endpoint, user=username, password=password, db=database_name)
+
 
 def lambda_handler(event, context):
-    try: 
-        client = boto3.client('secretsmanager')
-        response = client.get_secret_value(SecretId='vacationAppDb/MySQL')
-
-        secretDict = json.loads(response['SecretString'])
-        print("Secret Dict:", secretDict)
-        endpoint = secretDict['host']
-        username = secretDict['username']
-        password = secretDict['password']
-        database_name = 'vacationAppDb'
-
-        #Connection 
-        connection = pymysql.connect(host=endpoint, user=username, password=password, db=database_name)
-
-    except Exception as e: 
-        logger.error(f"Error establishing connection to the database")
-        return{
-            'statusCode' : 500, 
-            'body' : (f"Error establishing connection to the database: {e}")
-        } 
-    
-    try: 
+    try:
         #retrieve input data/ table data from Lambda event
         attendeeName = event['AttendeeName']
         vacationId = event['VacationId']
@@ -45,17 +38,10 @@ def lambda_handler(event, context):
         paymentType = event['PaymentType']
         paymentInfo = event['PaymentInfo']
         checkInTime = datetime.datetime.now()
-        cursor = connection.cursor() 
-    
-    except Exception: 
-        logger.error(f"Missing one or more event attributes")
-        return {
-            'statusCode' : 400, 
-            'body' : (f"Missing one or more event attributes")
-        }
         
-    try:
-        insert_check_in_table_query = (
+        cursor = connection.cursor() 
+        
+        insert_query = (
             "INSERT INTO CheckIn (AttendeeName, VacationId, Message, PaymentType, PaymentInfo)"
             "VALUES (%s, %s, %s, %s, %s)"
         )
@@ -63,7 +49,7 @@ def lambda_handler(event, context):
         data = (attendeeName, vacationId, message, paymentType, paymentInfo)
         
         #calls sql insert statement and inserts data into database
-        cursor.execute(insert_check_in_table_query, data)
+        cursor.execute(insert_query, data)
         
         #commits query to the database 
         connection.commit()
@@ -73,13 +59,10 @@ def lambda_handler(event, context):
         rows = cursor.fetchall() 
         for row in rows: 
             print (row)
+            
+        logger.info(f"Successfuly checked in user")
         
         connection.close()
     
-    except Exception as e:
-        logger.erro(f"Malformed event attributes")
-        return {
-            'statusCode' : 406,
-            'body' : (f"Malformed event attributes")
-        }
-
+    except Exception as e: 
+        logger.erro(f"Error querying the database")

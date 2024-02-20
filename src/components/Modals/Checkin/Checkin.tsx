@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../../Button/Button.tsx';
 import './Checkin.css'
-import {Checkbox, FormGroup, Modal, TextField, Typography, FormControlLabel, FormLabel, Stack} from "@mui/material";
+import {Checkbox, FormGroup, Modal, TextField, Typography, FormControlLabel, FormLabel, Stack, InputLabel} from "@mui/material";
 
 type CheckinModalProps = {
     onClose: () => void;
@@ -11,14 +11,38 @@ type CheckinModalProps = {
 
 const CheckinModal: React.FC<CheckinModalProps> = ({open, onClose, vacationId}) => {
     const [paymentMethod, setPaymentMethod] = useState<string | null>(null)
+    const [name, setName] = useState("")
+    const [paymentInfo, setPaymentInfo] = useState("")
+    const [message, setMessage] = useState("")
     
     const handlePaymentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPaymentMethod(event.target.value)
     }
 
+    var bodyAPI: any ={
+        "VacationId" : vacationId,
+        "AttendeeName" : name,
+        "PaymentType" : paymentMethod,
+        "PaymentInfo" : paymentInfo, 
+        "Message" : message
+    }
+
     const handleCheckin = () => {
         console.log("button clicked! implement api call here")
-    }
+        fetch(`https://sxlte22z2k.execute-api.us-west-1.amazonaws.com/dev/put-checkin`, {
+            method:'POST',
+        body: JSON.stringify(bodyAPI)
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("POST request successful ", data)
+            onClose();
+        })
+    .catch((err) => {
+        console.error("Error making POST request ", err.message)
+    })
+        }
+
     return(
         <Modal
             open={open}
@@ -37,10 +61,10 @@ const CheckinModal: React.FC<CheckinModalProps> = ({open, onClose, vacationId}) 
                 
                 <FormGroup>
                     <div id="checkin-modal-form-entry">
-                        <FormLabel component="legend">Name</FormLabel>
+                        <InputLabel htmlFor="name">Name</InputLabel>
+                        <TextField required id="name" value={name} onChange={(e) => setName(e.target.value)} />
+
                     </div>
-                    <TextField required id="outlined-required"/>
-                    
 
                     <div id= "checkin-modal-form-entry">
                         <FormLabel component="legend">Payment Preference</FormLabel>
@@ -64,15 +88,16 @@ const CheckinModal: React.FC<CheckinModalProps> = ({open, onClose, vacationId}) 
                     </div>
 
                     <div id= "checkin-modal-form-entry">
-                        <FormLabel component="legend">Payment username/contact</FormLabel>
+                        <InputLabel htmlFor="payment-info">Payment username/contact</InputLabel>
+                        <TextField required id="payment-info" value={paymentInfo} onChange={(e) => setPaymentInfo(e.target.value)} />
                     </div>
-                    <TextField required id="outlined-required"/>
                     
 
                     <div id= "checkin-modal-form-entry">
-                        <FormLabel component="legend">Add a friendly message to the organizer!</FormLabel>
+                        <InputLabel htmlFor="message">Add a friendly message to the organizer!</InputLabel>
+                        <TextField required id="message" value={message} onChange={(e) => setMessage(e.target.value)} />
                     </div>
-                    <TextField required id="outlined-required"/>
+
                    
                     <div id= "checkin-modal-form-entry">
                         <Stack justifyContent="center" spacing={3} direction="row">
