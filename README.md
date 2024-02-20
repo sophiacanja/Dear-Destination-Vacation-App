@@ -11,3 +11,18 @@ Motivated by the challenges commonly faced when orchestrating group trips, Dear 
 Built with the goal of providing users with a seamless and stress-free vacation planning experience, Dear Destination eliminates the need for scattered emails, endless spreadsheets, and disjointed communication channels. By centralizing trip logistics and fostering collaboration among group members, Dear Destination transforms the way people coordinate and enjoy group travel adventures.
 
 ## Learning Opportunities
+
+
+## Technologies Used
+-React.ts
+-Amazon Web Services: Lambda Functions, API Gateway
+-Aurora RDS (Relational Database Service)
+-MySQL Database 
+-Material UI 
+-Git 
+
+## Getting Started
+
+## Authors
+Sophia Canja
+
