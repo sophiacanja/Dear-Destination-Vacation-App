@@ -17,7 +17,7 @@ logger.setLevel(logging.INFO)
 client = boto3.client('secretsmanager')
 response = client.get_secret_value(SecretId='vacationAppDb/MySQL')
 
-print("hello from line 15")
+
 secretDict = json.loads(response['SecretString'])
 print("Secret Dict:", secretDict)
 endpoint = secretDict['host']
