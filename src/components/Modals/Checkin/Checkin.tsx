@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../../Button/Button.tsx';
-import './Checkin.css'
+import './Checkin.css';
+import SuccessBanner from '../../Banners/Success/Success.tsx';
 import {Checkbox, FormGroup, Modal, TextField, Typography, FormControlLabel, FormLabel, Stack, InputLabel} from "@mui/material";
 
 type CheckinModalProps = {
@@ -14,6 +15,8 @@ const CheckinModal: React.FC<CheckinModalProps> = ({open, onClose, vacationId}) 
     const [name, setName] = useState("")
     const [paymentInfo, setPaymentInfo] = useState("")
     const [message, setMessage] = useState("")
+    const [showSuccessBanner, setShowSuccessBanner] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false)
     
     const handlePaymentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPaymentMethod(event.target.value)
@@ -28,20 +31,25 @@ const CheckinModal: React.FC<CheckinModalProps> = ({open, onClose, vacationId}) 
     }
 
     const handleCheckin = () => {
+        setIsSubmitting(true)
         console.log("button clicked! implement api call here")
         fetch(`https://sxlte22z2k.execute-api.us-west-1.amazonaws.com/dev/put-checkin`, {
-            method:'POST',
+        method:'POST',
         body: JSON.stringify(bodyAPI)
     })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("POST request successful ", data)
-            onClose();
+        .then((response) => {
+            if(response.ok){
+                console.log("success banner is set to true")
+                setShowSuccessBanner(true)
+            }else {
+                throw response;
+            }
+        
         })
-    .catch((err) => {
-        console.error("Error making POST request ", err.message)
-    })
-        }
+        .catch((err) => {
+            console.error("Error making POST request ", err.message)
+        })
+            }
 
     return(
         <Modal
@@ -101,13 +109,21 @@ const CheckinModal: React.FC<CheckinModalProps> = ({open, onClose, vacationId}) 
                    
                     <div id= "checkin-modal-form-entry">
                         <Stack justifyContent="center" spacing={3} direction="row">
-                            <Button title="Submit" size="small" variant="contained" onClick={handleCheckin}/>
-                            <Button title="Cancel" size="small" variant="outlined" onClick={onClose}/>
+                            <Button title="Submit" size="small" variant="contained" onClick={handleCheckin} disabled={isSubmitting}/>
+                            <Button title="Cancel" size="small" variant="outlined" onClick={onClose} disabled={isSubmitting}/>
                         </Stack>
                     </div>
 
                     </FormGroup>
+                    {showSuccessBanner && (
+                        <div className='success-message'>
+                            <SuccessBanner message="Successfully checked in!"/>
+                            <Button title="Close" size="small" variant="contained" onClick={onClose}/>
+                        </div>
+                    )}
+                    
                 </div>
+                
 
         </Modal>
     )

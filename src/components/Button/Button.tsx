@@ -9,11 +9,12 @@ interface ButtonProps {
     size?: 'small' | 'medium' | 'large';
     variant?: 'contained' | 'outlined';
     icon?: ReactNode;
+    disabled?: boolean;
 }
 
-const Button: FC<ButtonProps>=({title, onClick, size, variant, icon}) => {
+const Button: FC<ButtonProps>=({title, onClick, size, variant, icon, disabled}) => {
     return(
-        <ButtonMUI size={size} variant={variant} onClick={onClick} startIcon={icon}>
+        <ButtonMUI size={size} variant={variant} onClick={onClick} startIcon={icon} disabled={disabled}>
         {title}
       </ButtonMUI>
     )
