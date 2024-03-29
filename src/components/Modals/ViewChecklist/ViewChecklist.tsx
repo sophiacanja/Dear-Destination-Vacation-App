@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Button from '../../Button/Button.tsx';
 import './ViewChecklist.css'
 import {Modal, Typography, Box} from "@mui/material";
-import { json } from 'stream/consumers';
-import { isTemplateElement } from '@babel/types';
 
 // https://vf24p8yepd.execute-api.us-west-1.amazonaws.com/dev/get-checklist 
 type ChecklistModalProps = {
@@ -16,11 +14,11 @@ type ChecklistModalProps = {
 
 const ChecklistModal: React.FC<ChecklistModalProps> = ({open, onClose, vacationLocation, vacationId}) => {
     const [checklistArr, setChecklistArr] = useState([])
+    const [dataPresent, setDataPresent] = useState(false)
 
     var headersAPI: any = {
         "vacation_id" : vacationId
     }
-    // console.log('Vacation id: ', vacationId)
     useEffect(() => {
         fetch(`https://vf24p8yepd.execute-api.us-west-1.amazonaws.com/dev/get-checklist`, {
             method: 'GET',
@@ -29,11 +27,10 @@ const ChecklistModal: React.FC<ChecklistModalProps> = ({open, onClose, vacationL
         .then((response) => response.json()) 
         .then((data) => {
             if (data && data.length > 0 ){
+                setDataPresent(true)
                 const tempChecklistArr = data.map((item) => {
                     return item.Item
-                    // console.log(item.Item)
                 })
-            // console.log("Temp checklist", tempChecklistArr)
             setChecklistArr(tempChecklistArr)
             console.log("Updated Checklist Items:", checklistArr);  
             }
@@ -65,6 +62,12 @@ useEffect(() => {
                 <Typography id="checklist-modal" variant="h6" component="h2">
                     {checklistArr.map((item) => <div> {item} </div>)}
                 </Typography>
+
+                {!dataPresent && (
+                    <Typography id="checklist-modal" variant="h6" component="h2">
+                        No checklist provided by the organizer yet! 
+                    </Typography>
+                )}
            
                 <Button title="Close" onClick={onClose} size="small" variant='contained'/>
             </div>
