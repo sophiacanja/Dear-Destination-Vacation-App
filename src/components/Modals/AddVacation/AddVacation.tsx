@@ -18,13 +18,12 @@ type AddVacationModalProps = {
 }
 
 const AddVacationModal: React.FC<AddVacationModalProps> = ({open, onClose}) => {
-    const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs('2023-01-17'));
-    const [endDate, setEndDate] = React.useState<Dayjs | null>(dayjs('2023-01-18'));
+    const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs('2024-03-01'));
+    const [endDate, setEndDate] = React.useState<Dayjs | null>(dayjs('2024-03-01'));
     const [inputLocation, setLocation] = React.useState("Enter Location");
     const [showSuccessBanner, setShowSuccessBanner] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // TODO: IMPLEMENT REFRESH AFTER ADDING THE VACATION
     const refresh = () => window.location.reload()
 
     var bodyAPI: any ={
@@ -101,7 +100,7 @@ const handleAddVacation = () => {
                 {showSuccessBanner && (
                     <div> 
                         <SuccessBanner message="Successfully added vacation!"/>
-                        <Button title="Close" onClick={onClose} size="small" variant="contained"/>
+                        <Button title="Close" onClick={refresh} size="small" variant="contained"/>
                     </div>
                 )}
                 
