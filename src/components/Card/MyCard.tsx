@@ -59,8 +59,8 @@ const MyCard: React.FC<componentProps> = ({title, content, vacationId}) => {
                 </header>
                 </Typography>
 
-                <Typography variant="body2" color="text.secondary">
-                <div>
+                <Typography variant="body2" color="text.secondary" fontSize="large">
+                <div id= "card-content">
                     {content}
                 </div>
                 </Typography>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../../Button/Button.tsx';
-import './AddVacation.css'
+import SuccessBanner from '../../Banners/Success/Success.tsx';
+import './AddVacation.css';
 import {Modal, Typography, Box} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import {Stack} from "@mui/material";
@@ -20,6 +21,8 @@ const AddVacationModal: React.FC<AddVacationModalProps> = ({open, onClose}) => {
     const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs('2023-01-17'));
     const [endDate, setEndDate] = React.useState<Dayjs | null>(dayjs('2023-01-18'));
     const [inputLocation, setLocation] = React.useState("Enter Location");
+    const [showSuccessBanner, setShowSuccessBanner] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     // TODO: IMPLEMENT REFRESH AFTER ADDING THE VACATION
     const refresh = () => window.location.reload()
@@ -29,16 +32,21 @@ const AddVacationModal: React.FC<AddVacationModalProps> = ({open, onClose}) => {
         "departure_date" : startDate?.toISOString()
     }
 
+
 const handleAddVacation = () => {
+    setIsSubmitting(true)
     fetch(`https://zjb2711d56.execute-api.us-west-1.amazonaws.com/dev/post-vacation`, {
         method:'POST',
         body: JSON.stringify(bodyAPI)
     })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("POST request successful ", data)
-            onClose();
-        })
+    .then((response) => {
+        if(response.ok){
+            console.log("POST request successful")
+            setShowSuccessBanner(true)
+        }else{
+            throw response;
+        }
+    })
     .catch((err) => {
         console.error("Error making POST request ", err.message)
     })
@@ -63,11 +71,11 @@ const handleAddVacation = () => {
 
             <Stack spacing={3}>
                 <TextField 
-                  id="outlined-controlled"
-                  label="Enter your vacation's location"
-                  value={inputLocation}
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setLocation(event.target.value);
+                    id="outlined-controlled"
+                    label="Vacation location"
+                    value={inputLocation}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        setLocation(event.target.value);
                   }}
                 />
 
@@ -83,12 +91,20 @@ const handleAddVacation = () => {
                         value={endDate}
                         onChange={(newValue) => setEndDate(newValue)}
                     />  
+                   
                 </LocalizationProvider>
             
                 <Stack justifyContent="center" spacing={3} direction="row">
-                    <Button title="Add Vacation" onClick={handleAddVacation} size="small" variant='contained' /> 
-                    <Button title="Cancel" onClick={onClose} size="small" variant='outlined' />
+                    <Button title="Add Vacation" onClick={handleAddVacation} size="small" variant='contained' disabled={isSubmitting} /> 
+                    <Button title="Cancel" onClick={onClose} size="small" variant='outlined' disabled={isSubmitting} />
                 </Stack>
+                {showSuccessBanner && (
+                    <div> 
+                        <SuccessBanner message="Successfully added vacation!"/>
+                        <Button title="Close" onClick={onClose} size="small" variant="contained"/>
+                    </div>
+                )}
+                
             </Stack>
           
         </div>
