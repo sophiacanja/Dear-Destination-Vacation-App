@@ -28,3 +28,11 @@
     padding-top: 15px;
     padding-bottom:10px
 }
+
+.success-message {
+    margin-right: 10%;
+}
+
+.close-button {
+    justify-content: center;
+}

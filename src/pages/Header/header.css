@@ -1,9 +1,15 @@
 #header-container{
     background-color: #FAEED1;
     padding-top: 3%;
-    padding-bottom: 3%;text-shadow: 50px;
+    padding-bottom: 2%;
+    text-shadow: 50px;
 }
 
 #site-title {
+    padding-bottom: 1%;
     text-shadow: 50px;
+}
+
+#site-description {
+    font-size: x-large;
 }

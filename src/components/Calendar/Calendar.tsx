@@ -23,7 +23,7 @@ const Calendar: React.FC = () => {
     return(
         <div id='calendar-container'>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateCalendar defaultValue={dayjs('2024-01-10')} readOnly/>
+                <DateCalendar defaultValue={dayjs('2024-03-10')} readOnly/>
             </LocalizationProvider>
             <Button 
                 title="Plan New Vacation" 

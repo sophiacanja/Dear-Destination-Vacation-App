@@ -1,0 +1,16 @@
+.success-banner {
+    background-color: #dff0d8;
+    color: #3c763d;
+    padding: 10px;
+    border: 1px solid #d6e9c6;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-right: 40%;
+  }
+  
+  .success-message {
+    font-size: large;
+    color: #3c763d;
+  }
