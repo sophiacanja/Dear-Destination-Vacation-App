@@ -37,6 +37,7 @@ Built with the goal of providing users with a seamless and stress-free vacation 
 - Git 
 
 ## Getting Started
+### Database instance deactivated as of March 31, 2024
 This project relies on an active AWS database that lives in a virtual private cloud. This instance has been stopped and deactivated since March 31, 2024. 
 
 ### Starting the frontend 
