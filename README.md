@@ -2,7 +2,7 @@
 
 This full-stack web application organizes vacation details for large groups. It is a hub of information containing itineraries, details, and checklists.
 
-## Description
+## Overview
 
 Dear Destination is a web application aimed at streamlining the process of organizing group vacations. Designed to solve the complexities and frustrations associated with coordinating travel arrangements for large groups, Dear Destination empowers users to effortlessly plan, manage, and enjoy their collective travel experiences.
 
@@ -17,7 +17,7 @@ Built with the goal of providing users with a seamless and stress-free vacation 
 
 - React.ts
 - Amazon Web Services: Lambda Functions, API Gateway
-- Aurora RDS (Relational Database Service)
+- Amazon Aurora RDS (Relational Database Service)
 - MySQL Database 
 - Material UI 
 - Git 
