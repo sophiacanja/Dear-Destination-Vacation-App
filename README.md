@@ -22,6 +22,9 @@ Built with the goal of providing users with a seamless and stress-free vacation 
 - Material UI 
 - Git 
 
+## Demo & Screenshot
+![ScreenShot](https://raw.github.com/{sophia.canja}/{vacationApp}/{master}/)
+
 ## Getting Started
 
 ## Authors
