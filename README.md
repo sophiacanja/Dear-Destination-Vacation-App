@@ -36,12 +36,17 @@ Built with the goal of providing users with a seamless and stress-free vacation 
 - Material UI 
 - Git 
 
+## Getting Started
+This project relies on an active AWS database that lives in a virtual private cloud. This instance has been stopped and deactivated since March 31, 2024. 
+
+### Starting the frontend 
+- `npm install i ` to install any absent dependencies/libraries
+- `npm start` to start frontend
+
 ## Demo & Screenshot
 
 https://github.com/sophiacanja/vacationApp/assets/69090215/c19a1fe4-eb0e-4125-adb9-f97d1a5531d7
 
-
-## Getting Started
 
 ## Authors
 Sophia Canja
