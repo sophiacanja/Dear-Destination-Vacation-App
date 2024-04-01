@@ -11,7 +11,15 @@ Motivated by the challenges commonly faced when orchestrating group trips, Dear 
 Built with the goal of providing users with a seamless and stress-free vacation planning experience, Dear Destination eliminates the need for scattered emails, endless spreadsheets, and disjointed communication channels. By centralizing trip logistics and fostering collaboration among group members, Dear Destination transforms the way people coordinate and enjoy group travel adventures.
 
 ## Learning Opportunities
-
+- Acquire skills in setting up and administering relational databases with Amazon Aurora RDS (Relational Database Service)
+    -hello
+- Strengthened proficiency in SQL through interaction with AmazonA Aurora RDS
+- Gain proficiency in creating serverless functions using AWS Lambda while understanding the principles of event-driven architecture and its practical applications
+- Gain experince in configuring and managing API endpoints using AWS API Gateway, along with necessary authentication and authorization
+- Experience using components, state management, responsive UI using React, Material UI, and CSS
+- Explore best practices for securing serverless applications and APIs on AWS
+- Understand the process of integrating frontend and backend components in a single application
+- Learn about deploying and managing serverless applications on AWS while using monitoring and logging tools for troubleshooting and debugging
 
 ## Technologies Used
 
@@ -24,11 +32,8 @@ Built with the goal of providing users with a seamless and stress-free vacation 
 
 ## Demo & Screenshot
 
-
 https://github.com/sophiacanja/vacationApp/assets/69090215/c19a1fe4-eb0e-4125-adb9-f97d1a5531d7
 
-
-![image](https://github.com/sophiacanja/vacationApp/assets/69090215/7f5e95f3-3b2f-4259-a7b2-372dd58837c6)
 
 ## Getting Started
 
