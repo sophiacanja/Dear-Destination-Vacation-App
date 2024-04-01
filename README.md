@@ -12,8 +12,8 @@ Built with the goal of providing users with a seamless and stress-free vacation 
 
 ## Learning Opportunities
 - Acquire skills in setting up and administering relational databases with Amazon Aurora RDS (Relational Database Service)
-    -hello
 - Strengthened proficiency in SQL through interaction with AmazonA Aurora RDS
+  -hello
 - Gain proficiency in creating serverless functions using AWS Lambda while understanding the principles of event-driven architecture and its practical applications
 - Gain experince in configuring and managing API endpoints using AWS API Gateway, along with necessary authentication and authorization
 - Experience using components, state management, responsive UI using React, Material UI, and CSS
