@@ -23,6 +23,11 @@ Built with the goal of providing users with a seamless and stress-free vacation 
 - Git 
 
 ## Demo & Screenshot
+
+
+https://github.com/sophiacanja/vacationApp/assets/69090215/c19a1fe4-eb0e-4125-adb9-f97d1a5531d7
+
+
 ![image](https://github.com/sophiacanja/vacationApp/assets/69090215/7f5e95f3-3b2f-4259-a7b2-372dd58837c6)
 
 ## Getting Started
