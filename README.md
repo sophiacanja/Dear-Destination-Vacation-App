@@ -38,7 +38,7 @@ Built with the goal of providing users with a seamless and stress-free vacation 
 
 ## Getting Started
 ### Database instance deactivated as of March 31, 2024
-This project relies on an active AWS database that lives in a virtual private cloud. This instance has been stopped and deactivated since March 31, 2024. 
+This project relies on an active AWS database that lives in a virtual private cloud. Without this instance running, users cannot interact with the app and store their data.
 
 ### Starting the frontend 
 - `npm install i ` to install any absent dependencies/libraries
