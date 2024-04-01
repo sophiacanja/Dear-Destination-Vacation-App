@@ -1,0 +1,7 @@
+boto3 
+pymysql
+pytest
+awswrangler
+
+# How to run tests in terminal 
+# python -m pytest -s ./tests
