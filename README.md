@@ -11,22 +11,28 @@ Motivated by the challenges commonly faced when orchestrating group trips, Dear 
 Built with the goal of providing users with a seamless and stress-free vacation planning experience, Dear Destination eliminates the need for scattered emails, endless spreadsheets, and disjointed communication channels. By centralizing trip logistics and fostering collaboration among group members, Dear Destination transforms the way people coordinate and enjoy group travel adventures.
 
 ## Learning Opportunities
-- Acquire skills in setting up and administering relational databases with Amazon Aurora RDS (Relational Database Service)
-- Strengthened proficiency in SQL through interaction with AmazonA Aurora RDS
-  - helloo
-- Gain proficiency in creating serverless functions using AWS Lambda while understanding the principles of event-driven architecture and its practical applications
-- Gain experince in configuring and managing API endpoints using AWS API Gateway, along with necessary authentication and authorization
-- Experience using components, state management, responsive UI using React, Material UI, and CSS
-- Explore best practices for securing serverless applications and APIs on AWS
-- Understand the process of integrating frontend and backend components in a single application
-- Learn about deploying and managing serverless applications on AWS while using monitoring and logging tools for troubleshooting and debugging
+- Amazon Aurora RDS (Relational Datbase Service)
+  - Acquire skills in setting up and administering relational databases with Amazon Aurora RDS (Relational Database Service)
+  - Strengthened proficiency in SQL 
+- AWS Lambda Functions
+  - Gain proficiency in creating serverless functions using AWS Lambda
+  - Understand the principles of event-driven architecture and its practical applications
+- AWS API Gateway
+  - Gain experince in configuring and managing API endpoints using AWS API Gateway
+  - Explore authentication and authorization mechanisms for securing serverless applications and API's
+- React & Material-UI (MUI)
+  - Utilized React's component-based architecuture and state management capabilites
+  - Created visually applealing and responsive user interfaces with Material-UI
+- Deployment & DevOps
+  - Explore best practices for securing serverless applications and APIs on AWS
+  - Understand the process of integrating frontend and backend components in a single application
+  - Learn about deploying and managing serverless applications on AWS while using monitoring and logging tools for troubleshooting and debugging
 
 ## Technologies Used
-
-- React.ts
-- Amazon Web Services: Lambda Functions, API Gateway
+- Amazon Web Services: Lambda Functions, API Gateway, AWS Cloudwatch
 - Amazon Aurora RDS (Relational Database Service)
-- MySQL Database 
+- MySQL Database
+- React.ts
 - Material UI 
 - Git 
 
