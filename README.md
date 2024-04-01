@@ -44,7 +44,7 @@ This project relies on an active AWS database that lives in a virtual private cl
 - `npm install i ` to install any absent dependencies/libraries
 - `npm start` to start frontend
 
-## Demo & Screenshot
+## Demo
 
 https://github.com/sophiacanja/vacationApp/assets/69090215/c19a1fe4-eb0e-4125-adb9-f97d1a5531d7
 
