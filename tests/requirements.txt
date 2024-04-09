@@ -1,0 +1,8 @@
+boto3 
+pymysql
+pytest
+awswrangler
+moto
+
+#installing requirements file: pip install -r .\tests\requriements.txt
+# How to run tests in terminal:python -m pytest -s ./tests

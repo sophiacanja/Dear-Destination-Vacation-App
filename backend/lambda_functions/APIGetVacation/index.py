@@ -3,7 +3,7 @@ import boto3
 import datetime
 import json
 from datetime import datetime
-from custom_exceptions import VacationPlannerDatabaseConnectionError, VacationPlannerAuroraDbError, VacationPlannerJsonOutputError
+from backend.custom_exceptions import VacationPlannerDatabaseConnectionError, VacationPlannerAuroraDbError, VacationPlannerJsonOutputError
 
 #Database Configuration 
 # endpoint = 'vacationapp-dbcluster-instance-1.cmzd0vkepxf7.us-west-1.rds.amazonaws.com'
@@ -28,6 +28,12 @@ def lambda_handler(event, context):
         
     except VacationPlannerDatabaseConnectionError as e: 
         return_obj = e.get_err_obj() 
+
+    except VacationPlannerAuroraDbError as e:
+        return_obj = e.get_err_obj()
+
+    except VacationPlannerJsonOutputError as e:
+        return_obj = e.get_err_obj()
 
     else: 
         return_obj = {

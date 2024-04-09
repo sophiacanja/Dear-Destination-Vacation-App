@@ -2,7 +2,7 @@ import boto3
 from boto3.dynamodb.conditions import Key
 import json
 import logging 
-from custom_exceptions import VacationPlannerMissingOrMalformedHeadersError, VacationPlannerDynamoDbError
+from backend.custom_exceptions import VacationPlannerMissingOrMalformedHeadersError, VacationPlannerDynamoDbError
 
 #setting logging 
 logger = logging.getLogger()
@@ -10,10 +10,7 @@ logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
     try:
-        # Get the service resource.
-        dynamodb = boto3.resource('dynamodb')
-        # instantiate a table resource obj without actually creating a DynamoDB table (attributes of this table are lazy loaded)
-        itinerary_table = dynamodb.Table('Itinerary')
+        itinerary_table = get_dynamo_db()
         logger.info(event)
 
 
@@ -41,7 +38,13 @@ def lambda_handler(event, context):
 
     return return_obj
 
-
+def get_dynamo_db():
+    # Get the service resource.
+    dynamodb = boto3.resource('dynamodb')
+    # instantiate a table resource obj without actually creating a DynamoDB table (attributes of this table are lazy loaded)
+    itinerary_table = dynamodb.Table('Itinerary')
+    return itinerary_table
+    
 #helper function that checks if needed variables can be parsed from the event, else raises an error
 def is_headers_present(event):
     try:

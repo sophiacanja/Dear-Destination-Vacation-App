@@ -2,7 +2,7 @@ import pymysql
 import boto3
 import json
 import logging
-from custom_exceptions import VacationPlannerDatabaseConnectionError, VacationPlannerMissingOrMalformedHeadersError, VacationPlannerAuroraDbError
+from backend.custom_exceptions import VacationPlannerDatabaseConnectionError, VacationPlannerMissingOrMalformedHeadersError, VacationPlannerAuroraDbError
 
 #setting up logging 
 logger = logging.getLogger()
