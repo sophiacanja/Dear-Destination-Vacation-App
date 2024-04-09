@@ -3,7 +3,7 @@ import boto3
 import datetime
 import json
 import logging 
-from custom_exceptions import VacationPlannerDatabaseConnectionError, VacationPlannerMissingOrMalformedHeadersError, VacationPlannerAuroraDbError
+from backend.custom_exceptions import VacationPlannerDatabaseConnectionError, VacationPlannerMissingOrMalformedHeadersError, VacationPlannerAuroraDbError
 
 #Database Configuration 
 # endpoint = 'vacationapp-dbcluster-instance-1.cmzd0vkepxf7.us-west-1.rds.amazonaws.com'
@@ -18,6 +18,10 @@ logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
     try:
+        #connect to database
+        connection = get_db_connection() 
+        cursor = connection.cursor() 
+
         #retrieve input data/ table data from Lambda event
         if is_headers_present(event): 
             attendeeName = event['AttendeeName']
@@ -27,10 +31,6 @@ def lambda_handler(event, context):
             paymentInfo = event['PaymentInfo']
             checkInTime = datetime.datetime.now()
             checkin_data = (attendeeName, vacationId, message, paymentType, paymentInfo)
-
-        #connect to database
-        connection = get_db_connection() 
-        cursor = connection.cursor() 
 
         #insert data into table
         insert_checkin_info(cursor, checkin_data)
@@ -49,7 +49,7 @@ def lambda_handler(event, context):
 
     else: 
         return_obj = {
-            'statusCode' : 200, 
+            'statusCode' : 201, 
             'headers' : { "Access-Control-Allow-Origin" : "*"},
             'body': json.dumps(success_message)
         }
