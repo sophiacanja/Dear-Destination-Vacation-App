@@ -57,18 +57,6 @@ def test_is_headers_present_invalid(mock_db_connection, mock_headers_result):
     assert response.get('statusCode') == 400 
 
 
-#cannot test test because it references moto & fixtures which cannot be downloaded currently
-# @patch('APIPostItineraryMessage.index.get_db_connection')
-# def test_add_message(mock_db_conenction, fixture_dynamodb_base, fixture_dynamodb_itinerary):
-#     mock_db_conenction = MagicMock()
-#     boto3_session = boto3.session.Session()
-#     dynamodb = boto3_session.resource("dynamodb")
-#     add_message(event["VacationId"], event["Message"], dynamodb)
-#     response = fixture_dynamodb_base.get_item(Key={"identifier": event["VacationId"]})
-#     updated_message = response.get("Item")
-#     assert updated_message["VacationId"] == "2"
-
-
 @patch('APIPostItineraryMessage.index.add_message')
 @patch('APIPostItineraryMessage.index.get_db_connection')
 def test_post_itinerary_200(mock_db_connection, mock_add_message):
@@ -87,3 +75,13 @@ def test_post_itinerary_500(mock_db_connection, mock_add_message):
     response.get('statusCode') == 500
 
 
+#cannot test test because it references moto & fixtures which cannot be downloaded currently
+# @patch('APIPostItineraryMessage.index.get_db_connection')
+# def test_add_message(mock_db_conenction, fixture_dynamodb_base, fixture_dynamodb_itinerary):
+#     mock_db_conenction = MagicMock()
+#     boto3_session = boto3.session.Session()
+#     dynamodb = boto3_session.resource("dynamodb")
+#     add_message(event["VacationId"], event["Message"], dynamodb)
+#     response = fixture_dynamodb_base.get_item(Key={"identifier": event["VacationId"]})
+#     updated_message = response.get("Item")
+#     assert updated_message["VacationId"] == "2"
