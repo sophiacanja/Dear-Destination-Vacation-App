@@ -23,6 +23,10 @@ Built with the goal of providing users with a seamless and stress-free vacation 
 - React & Material-UI (MUI)
   - Utilize React's component-based architecuture and state management capabilites
   - Create visually applealing and responsive user interfaces with Material-UI
+- Python Unit Testing
+    - Practiced test-driven development by implementing unit tests with Pytest
+    - Utilized Pytest's mocking capabilities to simulate external depedenncies and isolate components for testing
+    - Enabled thorough testing of individual modules while also imporving test coverage
 - Deployment & DevOps
   - Explore best practices for securing serverless applications and APIs on AWS
   - Understand the process of integrating frontend and backend components in a single application
