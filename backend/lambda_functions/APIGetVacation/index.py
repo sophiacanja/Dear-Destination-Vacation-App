@@ -5,12 +5,6 @@ import json
 from datetime import datetime
 from backend.custom_exceptions import VacationPlannerDatabaseConnectionError, VacationPlannerAuroraDbError, VacationPlannerJsonOutputError
 
-#Database Configuration 
-# endpoint = 'vacationapp-dbcluster-instance-1.cmzd0vkepxf7.us-west-1.rds.amazonaws.com'
-# username = 'admin'
-# password = 'Asdiop123!'
-# database_name = 'vacationAppDb'
-
 
 def lambda_handler(event, context):
     try: 
