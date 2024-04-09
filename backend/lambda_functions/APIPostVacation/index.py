@@ -4,7 +4,7 @@ from datetime import datetime
 import json
 import logging
 from botocore.exceptions import ClientError
-from custom_exceptions import VacationPlannerDatabaseConnectionError, VacationPlannerAuroraDbError, VacationPlannerMissingOrMalformedHeadersError
+from backend.custom_exceptions import VacationPlannerDatabaseConnectionError, VacationPlannerAuroraDbError, VacationPlannerMissingOrMalformedHeadersError
 
 #set logging 
 logger = logging.getLogger()
