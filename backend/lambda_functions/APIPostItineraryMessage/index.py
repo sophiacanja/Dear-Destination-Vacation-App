@@ -2,13 +2,8 @@ import json
 import boto3
 import logging
 
-from custom_exceptions import VacationPlannerDynamoDbError, VacationPlannerMissingOrMalformedHeadersError
+from backend.custom_exceptions import VacationPlannerDynamoDbError, VacationPlannerMissingOrMalformedHeadersError
 
-# Get service resource
-dynamodb = boto3.resource('dynamodb')
-
-# Instantiate table resource object
-table = dynamodb.Table('Itinerary')
 
 #setting up logging 
 logger = logging.getLogger()
@@ -17,13 +12,14 @@ logger.setLevel(logging.INFO)
 
 def lambda_handler(event, context):
     try:
+        itinerary_table = get_db_connection()
         #getting variables needed from headers 
         if is_headers_present(event): 
             vacation_id = event['VacationId']
             message = event['Message']
 
             # Update and get the item
-            updatedItem = addMessage(vacation_id, message)  
+            updatedItem = add_message(vacation_id, message, itinerary_table)  
 
     except VacationPlannerMissingOrMalformedHeadersError as e:
         return_obj = e.get_err_obj()
@@ -39,6 +35,13 @@ def lambda_handler(event, context):
 
     return return_obj
 
+def get_db_connection():
+    # Get service resource
+    dynamodb = boto3.resource('dynamodb')
+
+    # Instantiate table resource object
+    table = dynamodb.Table('Itinerary')
+    return table
 
 #helper method that checks if headers passed in is present and can be parsed
 def is_headers_present(event):
@@ -51,7 +54,7 @@ def is_headers_present(event):
         raise VacationPlannerMissingOrMalformedHeadersError()
 
 # Update and get the item after inserting data
-def addMessage(vacation_id, message):
+def add_message(vacation_id, message, table):
     try:
         table.update_item(
             Key={
